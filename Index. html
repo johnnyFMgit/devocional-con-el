@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>✦ Con Él ✦ Su Palabra, Mi Camino</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="https://img.icons8.com/color/192/holy-bible.png">
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #ffffff;
+      --text: #1e293b;
+      --primary: #1b4d3e;
+      --accent: #0284c7;
+      --border: #e2e8f0;
+    }
+    .dark-mode {
+      --bg: #0b0f19;
+      --card: #1e2536;
+      --text: #f1f5f9;
+      --primary: #2d6a4f;
+      --accent: #38bdf8;
+      --border: #334155;
+    }
+    body { 
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+      background: var(--bg); 
+      color: var(--text);
+      margin: 0; 
+      padding: 12px; 
+      display: flex;
+      justify-content: center;
+      transition: 0.3s;
+    }
+    .card { 
+      background: var(--card); 
+      border-radius: 20px; 
+      padding: 20px; 
+      max-width: 430px; 
+      width: 100%;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      box-sizing: border-box;
+      margin-bottom: 30px;
+    }
+    .tab-auth {
+      display: flex;
+      border-radius: 10px;
+      background: rgba(0,0,0,0.06);
+      margin-bottom: 16px;
+      padding: 4px;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      background: transparent;
+      font-weight: 700;
+      color: var(--text);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: 0.2s;
+    }
+    .tab-btn.active {
+      background: var(--card);
+      color: var(--primary);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    }
+    .app-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+    }
+    .app-title-box { display: flex; flex-direction: column; }
+    .app-title { font-size: 16px; font-weight: 800; color: var(--primary); letter-spacing: 0.5px; }
+    .app-subtitle { font-size: 10px; font-weight: 700; text-transform: uppercase; opacity: 0.7; letter-spacing: 0.5px; }
+    .lector-tag { font-size: 11px; font-weight: 700; color: var(--accent); cursor: pointer; display: flex; align-items: center; gap: 3px; margin-top: 3px; }
+    
+    .top-actions { display: flex; gap: 6px; align-items: center; }
+    .badge-progress { background: #dcfce7; color: #166534; font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 999px; }
+    .btn-icon { background: none; border: 1px solid var(--border); border-radius: 50%; width: 30px; height: 30px; cursor: pointer; color: var(--text); display: flex; align-items: center; justify-content: center; font-size: 13px; }
+    .btn-exit { color: #dc2626; border-color: rgba(220, 38, 38, 0.3); font-weight: bold; }
+
+    .mes-card {
+      background: linear-gradient(135deg, rgba(27,77,62,0.08), rgba(2,132,199,0.08));
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-bottom: 14px;
+    }
+    .mes-titulo { font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--primary); }
+    .mes-enfoque { font-size: 12px; margin-top: 2px; opacity: 0.85; line-height: 1.3; }
+
+    .nav-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+    .nav-btn { background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 6px 12px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 13px; }
+
+    .pasaje-container {
+      background: rgba(27, 77, 62, 0.05);
+      border-left: 4px solid var(--primary);
+      padding: 12px 14px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+    .pasaje-label { font-size: 11px; font-weight: 800; text-transform: uppercase; opacity: 0.7; }
+    .pasaje-text { font-size: 18px; font-weight: 800; color: var(--primary); margin-top: 3px; }
+
+    .lecturas-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
+    .btn-pasaje-row { display: flex; gap: 6px; }
+    .btn-pasaje {
+      flex: 1;
+      background: #1b4d3e;
+      color: white;
+      text-decoration: none;
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-audio {
+      background: #ba2323;
+      color: white;
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .btn-todos {
+      background: #0284c7;
+      color: white;
+      text-decoration: none;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 800;
+      text-align: center;
+      display: block;
+      margin-bottom: 15px;
+    }
+
+    .btn-completar {
+      width: 100%;
+      background: #10b981;
+      color: white;
+      border: none;
+      padding: 14px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    input[type="text"], input[type="password"], select {
+      width: 100%;
+      padding: 11px 12px;
+      box-sizing: border-box;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      border-radius: 10px;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+    .status { text-align: center; color: #10b981; font-weight: 700; margin-top: 10px; font-size: 13px; }
+
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); align-items: center; justify-content: center; z-index: 50; }
+    .modal-box { background: var(--card); padding: 22px; border-radius: 16px; max-width: 320px; font-size: 13px; line-height: 1.5; color: var(--text); }
+  </style>
+</head>
+<body>
+  <!-- Pantalla Login -->
+  <div class="card" id="pantalla-login" style="display:none; text-align:center;">
+    <h2 style="color:var(--primary); margin-top:0; letter-spacing:1px; margin-bottom:4px;">✦ Con Él ✦</h2>
+    <p style="font-size:12px; opacity:0.8; margin-bottom:16px; font-weight:700;">Su Palabra, Mi Camino • NTV</p>
+
+    <div class="tab-auth">
+      <button id="btn-tab-reg" class="tab-btn active" onclick="cambiarTab(true)">Soy Nuevo</button>
+      <button id="btn-tab-log" class="tab-btn" onclick="cambiarTab(false)">Ya Tengo Perfil</button>
+    </div>
+
+    <!-- Formulario Registro -->
+    <div id="form-registro">
+      <label style="font-size:12px; font-weight:700; display:block; text-align:left; margin-bottom:4px;">Tu Nombre y Apellido:</label>
+      <input type="text" id="reg-nombre" placeholder="Ej. David Morales">
+
+      <label style="font-size:12px; font-weight:700; display:block; text-align:left; margin-bottom:4px;">Crea un PIN de 4 dígitos:</label>
+      <input type="password" id="reg-pin" maxlength="4" placeholder="••••" style="letter-spacing:4px; text-align:center;">
+
+      <button class="btn-completar" onclick="procesarAuth(true)">Crear mi Plan Personal</button>
+    </div>
+
+    <!-- Formulario Login (Menú Desplegable) -->
+    <div id="form-login" style="display:none;">
+      <label style="font-size:12px; font-weight:700; display:block; text-align:left; margin-bottom:4px;">Selecciona tu Perfil:</label>
+      <select id="log-nombre">
+        <option value="">-- Cargando lectores... --</option>
+      </select>
+
+      <label style="font-size:12px; font-weight:700; display:block; text-align:left; margin-bottom:4px;">Tu PIN de 4 dígitos:</label>
+      <input type="password" id="log-pin" maxlength="4" placeholder="••••" style="letter-spacing:4px; text-align:center;">
+
+      <button class="btn-completar" onclick="procesarAuth(false)">Ingresar a mi Plan</button>
+    </div>
+    
+    <div id="auth-msg" style="color:#dc2626; font-size:12px; font-weight:700; margin-top:10px;"></div>
+  </div>
+
+  <!-- Pantalla Principal -->
+  <div class="card" id="app-content" style="display:none;">
+    <div class="app-header">
+      <div class="app-title-box">
+        <div class="app-title">✦ Con Él ✦</div>
+        <div class="app-subtitle">Su Palabra, Mi Camino</div>
+        <div class="lector-tag" onclick="cerrarSesionPerfil()">👤 <span id="label-lector">Lector</span> ▾</div>
+      </div>
+      <div class="top-actions">
+        <span id="avance-badge" class="badge-progress">0.0%</span>
+        <button class="btn-icon" title="Regla de oro" onclick="toggleModal(true)">🧭</button>
+        <button class="btn-icon" title="Tema" onclick="toggleDarkMode()">🌓</button>
+        <button class="btn-icon btn-exit" title="Salir" onclick="salirApp()">✕</button>
+      </div>
+    </div>
+
+    <div class="mes-card">
+      <div id="mes-titulo" class="mes-titulo">Mes # — Tema</div>
+      <div id="mes-enfoque" class="mes-enfoque">Enfoque doctrinal</div>
+    </div>
+
+    <div class="nav-row">
+      <button class="nav-btn" onclick="cambiarDia(-1)">◀ Anterior</button>
+      <span id="dia-subtitulo" style="font-size: 13px; font-weight: 700; opacity: 0.85;"></span>
+      <button class="nav-btn" onclick="cambiarDia(1)">Siguiente ▶</button>
+    </div>
+
+    <div class="pasaje-container">
+      <div class="pasaje-label">Porción para hoy (NTV):</div>
+      <div id="pasaje-texto" class="pasaje-text"></div>
+      <small id="fecha-label" style="opacity: 0.7; font-size: 12px;"></small>
+    </div>
+
+    <a id="btn-todos" href="#" target="_blank" class="btn-todos">📚 Leer los libros juntos en NTV (BibleGateway)</a>
+
+    <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; opacity: 0.7; margin-bottom: 6px;">O abre cada libro en NTV:</div>
+    <div id="contenedor-botones" class="lecturas-grid"></div>
+
+    <label style="font-size: 11px; font-weight: 800; opacity: 0.75; display: block; margin-bottom: 4px;">Palabra o versículo clave (Opcional):</label>
+    <input type="text" id="palabra-clave" placeholder="Ej. Romanos 8:31, Paz, Gracia">
+
+    <button id="btn-check" class="btn-completar" onclick="enviarCheck()">✔ Marcar como Completado</button>
+    <div id="msg-status" class="status"></div>
+  </div>
+
+  <!-- Pantalla Salida -->
+  <div id="pantalla-salida" style="display:none; text-align:center; padding:40px 20px;">
+    <h2 style="color:var(--primary); margin-bottom:8px;">Sesión Finalizada</h2>
+    <p style="opacity:0.8; font-size:14px;">Tu progreso ha quedado guardado en la nube.</p>
+    <button class="nav-btn" style="margin-top:15px; padding:10px 18px;" onclick="location.reload()">Reabrir Aplicación</button>
+  </div>
+
+  <!-- Modal Ritual 5 Pasos -->
+  <div id="modal-ritual" class="modal" onclick="toggleModal(false)">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <h3 style="margin-top:0; color:var(--primary);">🧭 Regla de Oro (1 Minuto)[cite: 8]</h3>
+      <p><b>1. Pausa:</b> "Señor, vengo por Ti."[cite: 8]</p>
+      <p><b>2. Lee:</b> Las lecturas asignadas hoy.[cite: 8]</p>
+      <p><b>3. Escucha:</b> Quédate con una frase o palabra.[cite: 8]</p>
+      <p><b>4. Dialoga:</b> Breve oración de respuesta.[cite: 8]</p>
+      <p><b>5. Vive:</b> Lleva esa verdad contigo todo el día.[cite: 8]</p>
+      <button class="btn-completar" style="padding: 10px; margin-top: 8px;" onclick="toggleModal(false)">Entendido</button>
+    </div>
+  </div>
+
+  <script>
+    const URL_API = "https://script.google.com/macros/s/AKfycbyosGz1tppJnZFHw5clpJzNz1lbdo1uB9UQmaBiV0kCqu0bFLp4KiYR_Hb4G52zJxJgRQ/exec";
+
+    let diaActual = null;
+    let usuarioActivo = localStorage.getItem("encuentro_usuario_pro");
+
+    async function apiRequest(params) {
+      let query = new URLSearchParams(params).toString();
+      let res = await fetch(URL_API + "?" + query);
+      return await res.json();
+    }
+
+    function inicializar() {
+      if (!usuarioActivo) {
+        document.getElementById('pantalla-login').style.display = 'block';
+        document.getElementById('app-content').style.display = 'none';
+        cargarListaDesplegable();
+      } else {
+        document.getElementById('pantalla-login').style.display = 'none';
+        document.getElementById('app-content').style.display = 'block';
+        document.getElementById('label-lector').innerText = usuarioActivo;
+        cargarDatos();
+      }
+    }
+
+    async function cargarListaDesplegable() {
+      try {
+        let resp = await apiRequest({ accion: "obtenerLectores" });
+        let select = document.getElementById('log-nombre');
+        select.innerHTML = '<option value="">-- Selecciona tu nombre --</option>';
+        if (resp.exito && resp.lectores.length > 0) {
+          resp.lectores.forEach(function(u) {
+            let opt = document.createElement('option');
+            opt.value = u;
+            opt.innerText = u;
+            select.appendChild(opt);
+          });
+        } else {
+          select.innerHTML = '<option value="">(No hay lectores registrados aún)</option>';
+        }
+      } catch(e) {
+        console.error(e);
+      }
+    }
+
+    function cambiarTab(esRegistro) {
+      document.getElementById('btn-tab-reg').className = esRegistro ? 'tab-btn active' : 'tab-btn';
+      document.getElementById('btn-tab-log').className = !esRegistro ? 'tab-btn active' : 'tab-btn';
+      document.getElementById('form-registro').style.display = esRegistro ? 'block' : 'none';
+      document.getElementById('form-login').style.display = !esRegistro ? 'block' : 'none';
+      document.getElementById('auth-msg').innerText = '';
+      if (!esRegistro) {
+        cargarListaDesplegable();
+      }
+    }
+
+    async function procesarAuth(esRegistro) {
+      let nombre = esRegistro 
+        ? document.getElementById('reg-nombre').value.trim() 
+        : document.getElementById('log-nombre').value.trim();
+      let pin = document.getElementById(esRegistro ? 'reg-pin' : 'log-pin').value.trim();
+
+      if (!nombre || nombre.length < 3) {
+        document.getElementById('auth-msg').innerText = esRegistro 
+          ? "Escribe tu nombre y apellido (mínimo 3 letras)." 
+          : "Por favor selecciona tu nombre de la lista.";
+        return;
+      }
+      if (pin.length !== 4 || isNaN(pin)) {
+        document.getElementById('auth-msg').innerText = "El PIN debe tener exactamente 4 números.";
+        return;
+      }
+
+      document.getElementById('auth-msg').innerText = "Verificando con la nube...";
+      try {
+        let resp = await apiRequest({
+          accion: "autenticar",
+          usuario: nombre,
+          pin: pin,
+          esRegistro: esRegistro
+        });
+        if (resp.exito) {
+          usuarioActivo = resp.usuario;
+          localStorage.setItem("encuentro_usuario_pro", usuarioActivo);
+          inicializar();
+        } else {
+          document.getElementById('auth-msg').innerText = resp.mensaje;
+        }
+      } catch(e) {
+        document.getElementById('auth-msg').innerText = "Error de conexión con el servidor.";
+      }
+    }
+
+    function cerrarSesionPerfil() {
+      if (confirm("¿Deseas cambiar de lector en este dispositivo?")) {
+        localStorage.removeItem("encuentro_usuario_pro");
+        usuarioActivo = null;
+        inicializar();
+      }
+    }
+
+    async function cargarDatos(dia) {
+      document.getElementById('msg-status').innerText = "Cargando...";
+      try {
+        let resp = await apiRequest({
+          accion: "obtenerDia",
+          dia: dia || "",
+          usuario: usuarioActivo
+        });
+        let data = resp.datos;
+        diaActual = data.diaNum;
+        document.getElementById('dia-subtitulo').innerText = "Día " + data.diaNum + " • " + data.diaSemana;
+        document.getElementById('fecha-label').innerText = data.fecha + " (" + data.semana + ")";
+        document.getElementById('pasaje-texto').innerText = data.pasaje;
+        document.getElementById('mes-titulo').innerText = data.mes + " — " + data.temaMes;
+        document.getElementById('mes-enfoque').innerText = data.enfoqueMes;
+        document.getElementById('avance-badge').innerText = "Progreso: " + data.avanceTotal;
+        document.getElementById('btn-todos').href = data.urlGatewayTotal;
+
+        let contenedor = document.getElementById('contenedor-botones');
+        contenedor.innerHTML = "";
+
+        if (data.botonesLectura.length === 0) {
+          contenedor.innerHTML = "<div style='font-size:13px; opacity:0.8; text-align:center;'>Día de gracia o descanso reflexivo.</div>";
+          document.getElementById('btn-todos').style.display = 'none';
+        } else {
+          document.getElementById('btn-todos').style.display = 'block';
+          data.botonesLectura.forEach(function(b) {
+            let fila = document.createElement('div');
+            fila.className = "btn-pasaje-row";
+
+            let btnGateway = document.createElement('a');
+            btnGateway.className = "btn-pasaje";
+            btnGateway.href = b.urlGateway;
+            btnGateway.target = "_blank";
+            btnGateway.innerText = "📖 " + b.texto + " (NTV)";
+
+            let btnAudio = document.createElement('a');
+            btnAudio.className = "btn-audio";
+            btnAudio.href = b.urlYouVersion;
+            btnAudio.target = "_blank";
+            btnAudio.innerText = "🎧 YouVersion NTV";
+
+            fila.appendChild(btnGateway);
+            fila.appendChild(btnAudio);
+            contenedor.appendChild(fila);
+          });
+        }
+
+        document.getElementById('msg-status').innerText = data.completado ? "✅ Lectura ya completada" : "";
+        document.getElementById('btn-check').style.background = data.completado ? "#64748b" : "#10b981";
+        document.getElementById('btn-check').innerText = data.completado ? "✔ Completado" : "✔ Marcar como Completado";
+      } catch(e) {
+        document.getElementById('msg-status').innerText = "Error al cargar datos.";
+      }
+    }
+
+    function cambiarDia(delta) {
+      if (diaActual) {
+        let target = diaActual + delta;
+        if (target >= 1 && target <= 365) {
+          cargarDatos(target);
+        }
+      }
+    }
+
+    async function enviarCheck() {
+      let nota = document.getElementById('palabra-clave').value;
+      document.getElementById('btn-check').innerText = "Guardando...";
+      try {
+        let resp = await apiRequest({
+          accion: "marcarLectura",
+          dia: diaActual,
+          palabraClave: nota,
+          usuario: usuarioActivo
+        });
+        document.getElementById('msg-status').innerText = resp.mensaje;
+        document.getElementById('btn-check').innerText = "✔ Completado";
+        document.getElementById('btn-check').style.background = "#64748b";
+      } catch(e) {
+        document.getElementById('msg-status').innerText = "Error al guardar.";
+      }
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle('dark-mode');
+    }
+
+    function toggleModal(show) {
+      document.getElementById('modal-ritual').style.display = show ? 'flex' : 'none';
+    }
+
+    function salirApp() {
+      if (confirm("¿Deseas cerrar la sesión del devocional?")) {
+        window.close();
+        document.getElementById('app-content').style.display = 'none';
+        document.getElementById('pantalla-salida').style.display = 'block';
+      }
+    }
+
+    window.onload = function() { inicializar(); };
+  </script>
+</body>
+</html>
