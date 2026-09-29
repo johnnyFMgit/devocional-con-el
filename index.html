@@ -540,11 +540,26 @@
     }
 
     function salirAppDefinitivo() {
-      if (confirm("¿Deseas salir de la aplicación?")) {
-        window.close();
-        window.history.back();
-      }
+  if (confirm("¿Deseas salir de la aplicación?")) {
+    // 1. Cierre para WebIntoApp y WebViews Android
+    if (window.Android && typeof window.Android.closeApp === "function") {
+      window.Android.closeApp();
+      return;
     }
+    // 2. Cierre estándar
+    window.close();
+    
+    // 3. Respaldo para navegadores y PWA
+    try {
+      window.history.go(-(window.history.length - 1));
+      setTimeout(() => {
+        window.location.href = "about:blank";
+      }, 100);
+    } catch(e) {
+      window.history.back();
+    }
+  }
+}
 
     window.addEventListener("pageshow", function() {
       if (usuarioActivo) {
