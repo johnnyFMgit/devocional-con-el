@@ -545,24 +545,17 @@
 
 function salirAppDefinitivo() {
   if (confirm("¿Deseas salir de la aplicación?")) {
-    // 1. Limpiar usuario activo en memoria local
-    usuarioActivo = null;
+    // 1. Limpiar usuario activo
     localStorage.removeItem("usuarioActivo");
     sessionStorage.clear();
 
-    // 2. Ocultar contenido y volver a la pantalla de inicio
-    const appContent = document.getElementById('app-content');
-    const loginContainer = document.getElementById('login-container');
-    
-    if (appContent) appContent.style.display = 'none';
-    if (loginContainer) loginContainer.style.display = 'block';
-
-    // 3. Intento de cierre nativo (si el entorno lo permite)
-    if (window.Android && typeof window.Android.closeApp === "function") {
-      window.Android.closeApp();
-    } else {
+    // 2. Intento de cierre de ventana en navegadores y WebViews
+    try {
       window.close();
-    }
+    } catch(e) {}
+
+    // 3. Forzar salida al escritorio en Android WebView
+    window.location.replace("intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.HOME;end");
   }
 }
     window.addEventListener("pageshow", function() {
