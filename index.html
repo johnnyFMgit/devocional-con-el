@@ -545,11 +545,20 @@
 
 function salirAppDefinitivo() {
   if (confirm("¿Deseas salir de la aplicación?")) {
-    if (window.Android && typeof window.Android.closeApp === "function") {
-      window.Android.closeApp();
-      return;
-    }
+    // 1. Cierra sesión visualmente limpiando el usuario activo
+    localStorage.removeItem("usuarioActivo");
+    sessionStorage.clear();
+    
+    // 2. Intento de cierre de ventana
+    window.close();
+    
+    // 3. Salida de pila nativa
     window.history.back();
+    
+    // 4. Redirección limpia a la pantalla de bienvenida/login
+    setTimeout(function() {
+      location.reload();
+    }, 150);
   }
 }
     window.addEventListener("pageshow", function() {
