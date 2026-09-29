@@ -99,7 +99,6 @@
     .mes-titulo { font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--primary); }
     .mes-enfoque { font-size: 12px; margin-top: 2px; opacity: 0.85; line-height: 1.3; }
 
-    /* Botones de navegación Anterior y Siguiente de alto contraste */
     .nav-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
     .nav-btn { 
       background: var(--nav-bg); 
@@ -113,9 +112,7 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.08);
       transition: background 0.2s, transform 0.1s;
     }
-    .nav-btn:active {
-      transform: scale(0.96);
-    }
+    .nav-btn:active { transform: scale(0.96); }
 
     .pasaje-container {
       background: rgba(27, 77, 62, 0.05);
@@ -128,17 +125,37 @@
     .pasaje-text { font-size: 18px; font-weight: 800; color: var(--primary); margin-top: 3px; }
 
     .lecturas-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
-    .btn-pasaje {
+    .btn-pasaje-row { display: flex; gap: 8px; }
+    
+    .btn-version-ntv {
+      flex: 1;
       background: #1b4d3e;
       color: white !important;
       text-decoration: none;
-      padding: 13px 16px;
-      border-radius: 12px;
-      font-size: 14px;
+      padding: 12px 10px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      box-shadow: 0 3px 8px rgba(27,77,62,0.25);
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(27,77,62,0.25);
+    }
+    .btn-version-rvc {
+      flex: 1;
+      background: #0284c7;
+      color: white !important;
+      text-decoration: none;
+      padding: 12px 10px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(2,132,199,0.25);
     }
 
     .btn-completar {
@@ -154,17 +171,14 @@
       box-shadow: 0 3px 8px rgba(16,185,129,0.25);
       transition: 0.2s;
     }
-    .btn-completar:active {
-      transform: scale(0.98);
-    }
+    .btn-completar:active { transform: scale(0.98); }
 
-    /* Botón de cierre en la parte inferior */
     .btn-cerrar-app {
       width: 100%;
       background: transparent;
-      border: 1px solid rgba(220, 38, 38, 0.35);
+      border: 1px solid rgba(220, 38, 38, 0.4);
       color: #dc2626;
-      padding: 11px;
+      padding: 12px;
       border-radius: 10px;
       font-size: 13px;
       font-weight: 700;
@@ -197,7 +211,7 @@
   <!-- Pantalla Login -->
   <div class="card" id="pantalla-login" style="display:none; text-align:center;">
     <h2 style="color:var(--primary); margin-top:0; letter-spacing:1px; margin-bottom:4px;">✦ Con Él ✦</h2>
-    <p style="font-size:12px; opacity:0.8; margin-bottom:16px; font-weight:700;">Su Palabra, Mi Camino • NTV</p>
+    <p style="font-size:12px; opacity:0.8; margin-bottom:16px; font-weight:700;">Su Palabra, Mi Camino • NTV y RVC</p>
 
     <div class="tab-auth">
       <button id="btn-tab-reg" class="tab-btn active" onclick="cambiarTab(true)">Soy Nuevo</button>
@@ -256,12 +270,12 @@
     </div>
 
     <div class="pasaje-container">
-      <div class="pasaje-label">Porción para hoy (NTV):</div>
+      <div class="pasaje-label">Porción para hoy:</div>
       <div id="pasaje-texto" class="pasaje-text"></div>
       <small id="fecha-label" style="opacity: 0.7; font-size: 12px;"></small>
     </div>
 
-    <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; opacity: 0.7; margin-bottom: 8px;">Porciones del día (YouVersion NTV):</div>
+    <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; opacity: 0.7; margin-bottom: 8px;">Lecturas de hoy (Elige tu versión):</div>
     <div id="contenedor-botones" class="lecturas-grid"></div>
 
     <label style="font-size: 11px; font-weight: 800; opacity: 0.75; display: block; margin-bottom: 4px;">Palabra o versículo clave (Opcional):</label>
@@ -270,10 +284,15 @@
     <button id="btn-check" class="btn-completar" onclick="enviarCheck()">✔ Marcar como Completado</button>
     <div id="msg-status" class="status"></div>
 
-    <!-- Botón de salida reubicado -->
     <button class="btn-cerrar-app" onclick="salirAppDefinitivo()">
       🚪 Salir de la Aplicación
     </button>
+  </div>
+
+  <!-- Pantalla Despedida (en caso de que el sistema tarde un segundo en cerrar) -->
+  <div id="pantalla-despedida" style="display:none; text-align:center; padding:50px 20px;">
+    <h3 style="color:var(--primary);">¡Hasta pronto!</h3>
+    <p style="opacity:0.8; font-size:13px;">Tu avance ha quedado registrado.</p>
   </div>
 
   <!-- Modal Ritual 5 Pasos -->
@@ -433,13 +452,33 @@
         contenedor.innerHTML = "<div style='font-size:13px; opacity:0.8; text-align:center;'>Día de gracia o descanso reflexivo.</div>";
       } else {
         data.botonesLectura.forEach(function(b) {
-          let btn = document.createElement('a');
-          btn.className = "btn-pasaje";
-          btn.href = b.urlYouVersion;
-          btn.target = "_blank";
-          btn.rel = "noopener noreferrer";
-          btn.innerHTML = "<span>📖 <b>" + b.texto + "</b></span><span style='font-size:12px; opacity:0.85;'>Leer / Audio 🎧</span>";
-          contenedor.appendChild(btn);
+          let fila = document.createElement('div');
+          fila.className = "btn-pasaje-row";
+
+          // URL para versión NTV (ID 127)
+          let urlNtv = b.urlYouVersion;
+          // URL para versión RVC - Reina Valera Contemporánea (ID 146)
+          let urlRvc = b.urlYouVersion.replace("/127/", "/146/").replace(".NTV", ".RVC");
+
+          // Botón NTV
+          let btnNtv = document.createElement('a');
+          btnNtv.className = "btn-version-ntv";
+          btnNtv.href = urlNtv;
+          btnNtv.target = "_blank";
+          btnNtv.rel = "noopener noreferrer";
+          btnNtv.innerText = "📖 " + b.texto + " (NTV)";
+
+          // Botón Reina Valera Contemporánea
+          let btnRvc = document.createElement('a');
+          btnRvc.className = "btn-version-rvc";
+          btnRvc.href = urlRvc;
+          btnRvc.target = "_blank";
+          btnRvc.rel = "noopener noreferrer";
+          btnRvc.innerText = "📖 " + b.texto + " (RVC)";
+
+          fila.appendChild(btnNtv);
+          fila.appendChild(btnRvc);
+          contenedor.appendChild(fila);
         });
       }
 
@@ -491,21 +530,28 @@
       document.getElementById('modal-ritual').style.display = show ? 'flex' : 'none';
     }
 
-    // Salida definitiva de la app en Android
+    // Salida forzada y garantizada en Android WebView
     function salirAppDefinitivo() {
-      if (confirm("¿Deseas cerrar la aplicación?")) {
+      if (confirm("¿Deseas salir de la aplicación?")) {
+        document.getElementById('app-content').style.display = 'none';
+        document.getElementById('pantalla-despedida').style.display = 'block';
+
+        // 1. Llamar a las interfaces nativas de WebView si están expuestas
         try {
-          if (navigator.app && navigator.app.exitApp) {
-            navigator.app.exitApp();
-            return;
-          }
           if (window.Android && window.Android.closeApp) {
             window.Android.closeApp();
             return;
           }
+          if (navigator.app && navigator.app.exitApp) {
+            navigator.app.exitApp();
+            return;
+          }
         } catch(e) {}
-        window.close();
-        window.location.href = "about:blank";
+
+        // 2. Orden universal de Android para enviar la aplicación al home (pantalla principal)
+        setTimeout(function() {
+          window.location.href = "intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.HOME;end";
+        }, 150);
       }
     }
 
