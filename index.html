@@ -129,7 +129,7 @@
       background: #1b4d3e;
       color: white !important;
       text-decoration: none;
-      padding: 10px;
+      padding: 11px 10px;
       border-radius: 10px;
       font-size: 13px;
       font-weight: 700;
@@ -142,7 +142,7 @@
       background: #ba2323;
       color: white !important;
       text-decoration: none;
-      padding: 10px 14px;
+      padding: 11px 14px;
       border-radius: 10px;
       font-size: 13px;
       font-weight: 700;
@@ -249,10 +249,10 @@
       <small id="fecha-label" style="opacity: 0.7; font-size: 12px;"></small>
     </div>
 
-    <!-- Botón general BibleGateway -->
-    <a id="btn-todos" href="#" target="_blank" rel="noopener noreferrer" class="btn-todos">📚 Leer los libros juntos en NTV (BibleGateway)</a>
+    <!-- Botón directo YouVersion (sin error 500) -->
+    <a id="btn-todos" href="#" target="_blank" rel="noopener noreferrer" class="btn-todos">📖 Abrir lectura de hoy en YouVersion NTV</a>
 
-    <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; opacity: 0.7; margin-bottom: 6px;">O abre cada libro individual:</div>
+    <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; opacity: 0.7; margin-bottom: 6px;">O por libros asignados:</div>
     <div id="contenedor-botones" class="lecturas-grid"></div>
 
     <label style="font-size: 11px; font-weight: 800; opacity: 0.75; display: block; margin-bottom: 4px;">Palabra o versículo clave (Opcional):</label>
@@ -272,12 +272,12 @@
   <!-- Modal Ritual 5 Pasos -->
   <div id="modal-ritual" class="modal" onclick="toggleModal(false)">
     <div class="modal-box" onclick="event.stopPropagation()">
-      <h3 style="margin-top:0; color:var(--primary);">🧭 Regla de Oro (1 Minuto)[cite: 12]</h3>
-      <p><b>1. Pausa:</b> "Señor, vengo por Ti."[cite: 12]</p>
-      <p><b>2. Lee:</b> Las lecturas asignadas hoy.[cite: 12]</p>
-      <p><b>3. Escucha:</b> Quédate con una frase o palabra.[cite: 12]</p>
-      <p><b>4. Dialoga:</b> Breve oración de respuesta.[cite: 12]</p>
-      <p><b>5. Vive:</b> Lleva esa verdad contigo todo el día.[cite: 12]</p>
+      <h3 style="margin-top:0; color:var(--primary);">🧭 Regla de Oro (1 Minuto)[cite: 11]</h3>
+      <p><b>1. Pausa:</b> "Señor, vengo por Ti."[cite: 11]</p>
+      <p><b>2. Lee:</b> Las lecturas asignadas hoy.[cite: 11]</p>
+      <p><b>3. Escucha:</b> Quédate con una frase o palabra.[cite: 11]</p>
+      <p><b>4. Dialoga:</b> Breve oración de respuesta.[cite: 11]</p>
+      <p><b>5. Vive:</b> Lleva esa verdad contigo todo el día.[cite: 11]</p>
       <button class="btn-completar" style="padding: 10px; margin-top: 8px;" onclick="toggleModal(false)">Entendido</button>
     </div>
   </div>
@@ -420,8 +420,6 @@
       document.getElementById('avance-badge').innerText = "Progreso: " + data.avanceTotal;
       
       let btnTodos = document.getElementById('btn-todos');
-      btnTodos.href = data.urlGatewayTotal;
-
       let contenedor = document.getElementById('contenedor-botones');
       contenedor.innerHTML = "";
 
@@ -430,27 +428,30 @@
         btnTodos.style.display = 'none';
       } else {
         btnTodos.style.display = 'block';
+        // Enlaza la lectura principal a YouVersion (sin error 500)
+        btnTodos.href = data.botonesLectura[0].urlYouVersion;
+
         data.botonesLectura.forEach(function(b) {
           let fila = document.createElement('div');
           fila.className = "btn-pasaje-row";
 
-          // Acceso BibleGateway NTV con aislamiento de seguridad
-          let btnGateway = document.createElement('a');
-          btnGateway.className = "btn-pasaje";
-          btnGateway.href = b.urlGateway;
-          btnGateway.target = "_blank";
-          btnGateway.rel = "noopener noreferrer";
-          btnGateway.innerText = "📖 " + b.texto + " (NTV)";
+          // Lectura directa en YouVersion
+          let btnLectura = document.createElement('a');
+          btnLectura.className = "btn-pasaje";
+          btnLectura.href = b.urlYouVersion;
+          btnLectura.target = "_blank";
+          btnLectura.rel = "noopener noreferrer";
+          btnLectura.innerText = "📖 " + b.texto + " (NTV)";
 
-          // Acceso YouVersion (Texto + Audio)
+          // Audio oficial en YouVersion
           let btnAudio = document.createElement('a');
           btnAudio.className = "btn-audio";
           btnAudio.href = b.urlYouVersion;
           btnAudio.target = "_blank";
           btnAudio.rel = "noopener noreferrer";
-          btnAudio.innerText = "🎧 YouVersion";
+          btnAudio.innerText = "🎧 Audio";
 
-          fila.appendChild(btnGateway);
+          fila.appendChild(btnLectura);
           fila.appendChild(btnAudio);
           contenedor.appendChild(fila);
         });
