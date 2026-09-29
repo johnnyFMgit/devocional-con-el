@@ -288,9 +288,18 @@
     let usuarioActivo = localStorage.getItem("encuentro_usuario_pro");
 
     function abrirEnlaceExterno(url) {
-      if (!url) return;
-      window.open(url, '_system');
-    }
+  if (!url) return;
+  
+  // Si estamos en un móvil Android dentro de un WebView, forzamos la salida al navegador externo
+  if (/android/i.test(navigator.userAgent)) {
+    var urlSinHttps = url.replace(/^https?:\/\//, '');
+    var intentUrl = 'intent://' + urlSinHttps + '#Intent;scheme=https;action=android.intent.action.VIEW;end;';
+    window.location.href = intentUrl;
+  } else {
+    // Para computadoras o navegadores estándar
+    window.open(url, '_blank');
+  }
+}
 
     async function apiRequest(params) {
       let query = new URLSearchParams(params).toString();
