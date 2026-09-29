@@ -545,17 +545,19 @@
 
 function salirAppDefinitivo() {
   if (confirm("¿Deseas salir de la aplicación?")) {
-    // 1. Limpiar usuario activo
+    // 1. Limpiar credenciales y almacenamiento de sesión
     localStorage.removeItem("usuarioActivo");
     sessionStorage.clear();
 
-    // 2. Intento de cierre de ventana en navegadores y WebViews
+    // 2. Notificar al sistema para cerrar la vista actual
     try {
       window.close();
     } catch(e) {}
 
-    // 3. Forzar salida al escritorio en Android WebView
-    window.location.replace("intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.HOME;end");
+    // 3. Forzar salida al launcher principal de Android
+    setTimeout(function() {
+      window.location.replace("intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.HOME;end");
+    }, 50);
   }
 }
     window.addEventListener("pageshow", function() {
