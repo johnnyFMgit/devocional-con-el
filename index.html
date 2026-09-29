@@ -541,8 +541,8 @@
 
 function salirAppDefinitivo() {
   if (confirm("¿Deseas salir de la aplicación?")) {
+    window.location.href = "about:blank";
     window.close();
-    window.history.back();
   }
 }
     window.addEventListener("pageshow", function() {
