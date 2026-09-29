@@ -124,6 +124,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
     }
     .btn-audio {
       background: #ba2323;
@@ -136,6 +137,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      cursor: pointer;
     }
     .btn-todos {
       background: #0284c7;
@@ -148,6 +150,7 @@
       text-align: center;
       display: block;
       margin-bottom: 15px;
+      cursor: pointer;
     }
 
     .btn-completar {
@@ -180,6 +183,7 @@
   </style>
 </head>
 <body>
+  <!-- Pantalla Login -->
   <div class="card" id="pantalla-login" style="display:none; text-align:center;">
     <h2 style="color:var(--primary); margin-top:0; letter-spacing:1px; margin-bottom:4px;">✦ Con Él ✦</h2>
     <p style="font-size:12px; opacity:0.8; margin-bottom:16px; font-weight:700;">Su Palabra, Mi Camino • NTV</p>
@@ -214,6 +218,7 @@
     <div id="auth-msg" style="color:#dc2626; font-size:12px; font-weight:700; margin-top:10px;"></div>
   </div>
 
+  <!-- Pantalla Principal -->
   <div class="card" id="app-content" style="display:none;">
     <div class="app-header">
       <div class="app-title-box">
@@ -246,7 +251,7 @@
       <small id="fecha-label" style="opacity: 0.7; font-size: 12px;"></small>
     </div>
 
-    <a id="btn-todos" href="#" target="_blank" class="btn-todos">📚 Leer los libros juntos en NTV (BibleGateway)</a>
+    <button id="btn-todos" class="btn-todos" onclick="abrirEnlaceExterno(this.dataset.url)">📚 Leer los libros juntos en NTV (BibleGateway)</button>
 
     <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; opacity: 0.7; margin-bottom: 6px;">O abre cada libro en NTV:</div>
     <div id="contenedor-botones" class="lecturas-grid"></div>
@@ -266,12 +271,12 @@
 
   <div id="modal-ritual" class="modal" onclick="toggleModal(false)">
     <div class="modal-box" onclick="event.stopPropagation()">
-      <h3 style="margin-top:0; color:var(--primary);">🧭 Regla de Oro (1 Minuto)</h3>
-      <p><b>1. Pausa:</b> "Señor, vengo por Ti."</p>
-      <p><b>2. Lee:</b> Las lecturas asignadas hoy.</p>
-      <p><b>3. Escucha:</b> Quédate con una frase o palabra.</p>
-      <p><b>4. Dialoga:</b> Breve oración de respuesta.</p>
-      <p><b>5. Vive:</b> Lleva esa verdad contigo todo el día.</p>
+      <h3 style="margin-top:0; color:var(--primary);">🧭 Regla de Oro (1 Minuto)[cite: 15]</h3>
+      <p><b>1. Pausa:</b> "Señor, vengo por Ti."[cite: 15]</p>
+      <p><b>2. Lee:</b> Las lecturas asignadas hoy.[cite: 15]</p>
+      <p><b>3. Escucha:</b> Quédate con una frase o palabra.[cite: 15]</p>
+      <p><b>4. Dialoga:</b> Breve oración de respuesta.[cite: 15]</p>
+      <p><b>5. Vive:</b> Lleva esa verdad contigo todo el día.[cite: 15]</p>
       <button class="btn-completar" style="padding: 10px; margin-top: 8px;" onclick="toggleModal(false)">Entendido</button>
     </div>
   </div>
@@ -281,6 +286,11 @@
 
     let diaActual = null;
     let usuarioActivo = localStorage.getItem("encuentro_usuario_pro");
+
+    function abrirEnlaceExterno(url) {
+      if (!url) return;
+      window.open(url, '_system');
+    }
 
     async function apiRequest(params) {
       let query = new URLSearchParams(params).toString();
@@ -412,30 +422,30 @@
       document.getElementById('mes-titulo').innerText = data.mes + " — " + data.temaMes;
       document.getElementById('mes-enfoque').innerText = data.enfoqueMes;
       document.getElementById('avance-badge').innerText = "Progreso: " + data.avanceTotal;
-      document.getElementById('btn-todos').href = data.urlGatewayTotal;
+      
+      let btnTodos = document.getElementById('btn-todos');
+      btnTodos.dataset.url = data.urlGatewayTotal;
 
       let contenedor = document.getElementById('contenedor-botones');
       contenedor.innerHTML = "";
 
       if (data.botonesLectura.length === 0) {
         contenedor.innerHTML = "<div style='font-size:13px; opacity:0.8; text-align:center;'>Día de gracia o descanso reflexivo.</div>";
-        document.getElementById('btn-todos').style.display = 'none';
+        btnTodos.style.display = 'none';
       } else {
-        document.getElementById('btn-todos').style.display = 'block';
+        btnTodos.style.display = 'block';
         data.botonesLectura.forEach(function(b) {
           let fila = document.createElement('div');
           fila.className = "btn-pasaje-row";
 
-          let btnGateway = document.createElement('a');
+          let btnGateway = document.createElement('button');
           btnGateway.className = "btn-pasaje";
-          btnGateway.href = b.urlGateway;
-          btnGateway.target = "_blank";
+          btnGateway.onclick = function() { abrirEnlaceExterno(b.urlGateway); };
           btnGateway.innerText = "📖 " + b.texto + " (NTV)";
 
-          let btnAudio = document.createElement('a');
+          let btnAudio = document.createElement('button');
           btnAudio.className = "btn-audio";
-          btnAudio.href = b.urlYouVersion;
-          btnAudio.target = "_blank";
+          btnAudio.onclick = function() { abrirEnlaceExterno(b.urlYouVersion); };
           btnAudio.innerText = "🎧 YouVersion NTV";
 
           fila.appendChild(btnGateway);
