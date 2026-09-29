@@ -1,0 +1,8 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target": {
+        "namespace": "android_app",
+        "package_name": "io.github.johnnyfmgit.twa",
+        "sha256_cert_fingerprints": ["64:44:C1:54:C9:2D:2F:B8:28:E5:1C:66:DF:4B:B6:17:CE:E4:89:C0:F8:9B:C7:4B:AD:14:0F:20:5F:50:34:D9"]
+      }
+    }]
