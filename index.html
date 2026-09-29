@@ -124,7 +124,21 @@
     .pasaje-label { font-size: 11px; font-weight: 800; text-transform: uppercase; opacity: 0.7; }
     .pasaje-text { font-size: 18px; font-weight: 800; color: var(--primary); margin-top: 3px; }
 
-    .lecturas-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
+    .badge-media {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: rgba(2, 132, 199, 0.1);
+      color: var(--accent);
+      border: 1px solid rgba(2, 132, 199, 0.25);
+      border-radius: 8px;
+      padding: 4px 8px;
+      font-size: 11px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .lecturas-grid { display: flex; flex-direction: column; gap: 9px; margin-bottom: 15px; }
     .btn-pasaje-row { display: flex; gap: 8px; }
     
     .btn-version-ntv {
@@ -132,30 +146,42 @@
       background: #1b4d3e;
       color: white !important;
       text-decoration: none;
-      padding: 12px 10px;
+      padding: 11px 8px;
       border-radius: 10px;
       font-size: 13px;
       font-weight: 700;
       text-align: center;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       box-shadow: 0 2px 6px rgba(27,77,62,0.25);
     }
-    .btn-version-rvc {
+    .btn-version-rvr {
       flex: 1;
       background: #0284c7;
       color: white !important;
       text-decoration: none;
-      padding: 12px 10px;
+      padding: 11px 8px;
       border-radius: 10px;
       font-size: 13px;
       font-weight: 700;
       text-align: center;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       box-shadow: 0 2px 6px rgba(2,132,199,0.25);
+    }
+
+    .sub-tag {
+      font-size: 10px;
+      font-weight: 500;
+      opacity: 0.9;
+      margin-top: 2px;
+      display: flex;
+      align-items: center;
+      gap: 3px;
     }
 
     .btn-completar {
@@ -211,7 +237,7 @@
   <!-- Pantalla Login -->
   <div class="card" id="pantalla-login" style="display:none; text-align:center;">
     <h2 style="color:var(--primary); margin-top:0; letter-spacing:1px; margin-bottom:4px;">✦ Con Él ✦</h2>
-    <p style="font-size:12px; opacity:0.8; margin-bottom:16px; font-weight:700;">Su Palabra, Mi Camino • NTV y RVC</p>
+    <p style="font-size:12px; opacity:0.8; margin-bottom:16px; font-weight:700;">Su Palabra, Mi Camino • NTV y RVR1960</p>
 
     <div class="tab-auth">
       <button id="btn-tab-reg" class="tab-btn active" onclick="cambiarTab(true)">Soy Nuevo</button>
@@ -275,7 +301,7 @@
       <small id="fecha-label" style="opacity: 0.7; font-size: 12px;"></small>
     </div>
 
-    <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; opacity: 0.7; margin-bottom: 8px;">Lecturas de hoy (Elige tu versión):</div>
+    <div class="badge-media">🎧 Audio y 📖 Texto en ambas versiones:</div>
     <div id="contenedor-botones" class="lecturas-grid"></div>
 
     <label style="font-size: 11px; font-weight: 800; opacity: 0.75; display: block; margin-bottom: 4px;">Palabra o versículo clave (Opcional):</label>
@@ -287,12 +313,6 @@
     <button class="btn-cerrar-app" onclick="salirAppDefinitivo()">
       🚪 Salir de la Aplicación
     </button>
-  </div>
-
-  <!-- Pantalla Despedida (en caso de que el sistema tarde un segundo en cerrar) -->
-  <div id="pantalla-despedida" style="display:none; text-align:center; padding:50px 20px;">
-    <h3 style="color:var(--primary);">¡Hasta pronto!</h3>
-    <p style="opacity:0.8; font-size:13px;">Tu avance ha quedado registrado.</p>
   </div>
 
   <!-- Modal Ritual 5 Pasos -->
@@ -455,10 +475,10 @@
           let fila = document.createElement('div');
           fila.className = "btn-pasaje-row";
 
-          // URL para versión NTV (ID 127)
+          // NTV (ID 127 con audio y texto)
           let urlNtv = b.urlYouVersion;
-          // URL para versión RVC - Reina Valera Contemporánea (ID 146)
-          let urlRvc = b.urlYouVersion.replace("/127/", "/146/").replace(".NTV", ".RVC");
+          // Reina-Valera 1960 (ID 149 oficial en YouVersion con audio dramatizado y texto)
+          let urlRvr = b.urlYouVersion.replace("/127/", "/149/").replace(".NTV", ".RVR1960");
 
           // Botón NTV
           let btnNtv = document.createElement('a');
@@ -466,18 +486,18 @@
           btnNtv.href = urlNtv;
           btnNtv.target = "_blank";
           btnNtv.rel = "noopener noreferrer";
-          btnNtv.innerText = "📖 " + b.texto + " (NTV)";
+          btnNtv.innerHTML = "<span>📖 <b>" + b.texto + "</b> (NTV)</span><span class='sub-tag'>Leer / Audio 🎧</span>";
 
-          // Botón Reina Valera Contemporánea
-          let btnRvc = document.createElement('a');
-          btnRvc.className = "btn-version-rvc";
-          btnRvc.href = urlRvc;
-          btnRvc.target = "_blank";
-          btnRvc.rel = "noopener noreferrer";
-          btnRvc.innerText = "📖 " + b.texto + " (RVC)";
+          // Botón Reina Valera 1960
+          let btnRvr = document.createElement('a');
+          btnRvr.className = "btn-version-rvr";
+          btnRvr.href = urlRvr;
+          btnRvr.target = "_blank";
+          btnRvr.rel = "noopener noreferrer";
+          btnRvr.innerHTML = "<span>📖 <b>" + b.texto + "</b> (RVR60)</span><span class='sub-tag'>Leer / Audio 🎧</span>";
 
           fila.appendChild(btnNtv);
-          fila.appendChild(btnRvc);
+          fila.appendChild(btnRvr);
           contenedor.appendChild(fila);
         });
       }
@@ -530,13 +550,9 @@
       document.getElementById('modal-ritual').style.display = show ? 'flex' : 'none';
     }
 
-    // Salida forzada y garantizada en Android WebView
+    // Salida sin dejar la pantalla oculta al volver
     function salirAppDefinitivo() {
       if (confirm("¿Deseas salir de la aplicación?")) {
-        document.getElementById('app-content').style.display = 'none';
-        document.getElementById('pantalla-despedida').style.display = 'block';
-
-        // 1. Llamar a las interfaces nativas de WebView si están expuestas
         try {
           if (window.Android && window.Android.closeApp) {
             window.Android.closeApp();
@@ -548,12 +564,17 @@
           }
         } catch(e) {}
 
-        // 2. Orden universal de Android para enviar la aplicación al home (pantalla principal)
-        setTimeout(function() {
-          window.location.href = "intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.HOME;end";
-        }, 150);
+        // Enviar al inicio de Android sin romper la vista para cuando el usuario regrese
+        window.location.href = "intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.HOME;end";
       }
     }
+
+    // Si la aplicación vuelve a primer plano tras salir, restaura la vista automáticamente
+    window.addEventListener("pageshow", function() {
+      if (usuarioActivo) {
+        document.getElementById('app-content').style.display = 'block';
+      }
+    });
 
     window.onload = function() { inicializar(); };
   </script>
