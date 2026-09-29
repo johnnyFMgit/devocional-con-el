@@ -545,18 +545,8 @@
 
 function salirAppDefinitivo() {
   if (confirm("¿Deseas salir de la aplicación?")) {
-    // 1. Retroceder de golpe todas las páginas acumuladas en el WebView
-    if (window.history.length > 1) {
-      window.history.go(-(window.history.length));
-    }
-    
-    // 2. Intentar órdenes de terminación directa
     window.close();
-    
-    // 3. Redirección terminal que fuerza el cierre del contenedor
-    setTimeout(function() {
-      window.location.replace("about:blank");
-    }, 100);
+    window.location.href = "about:blank";
   }
 }
     window.addEventListener("pageshow", function() {
