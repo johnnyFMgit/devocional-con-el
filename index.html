@@ -109,19 +109,6 @@
     .pasaje-label { font-size: 11px; font-weight: 800; text-transform: uppercase; opacity: 0.7; }
     .pasaje-text { font-size: 18px; font-weight: 800; color: var(--primary); margin-top: 3px; }
 
-    .btn-todos {
-      background: #0284c7;
-      color: white !important;
-      text-decoration: none;
-      padding: 12px;
-      border-radius: 10px;
-      font-size: 13px;
-      font-weight: 800;
-      text-align: center;
-      display: block;
-      margin-bottom: 15px;
-    }
-
     .lecturas-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
     .btn-pasaje-row { display: flex; gap: 6px; }
     .btn-pasaje {
@@ -129,7 +116,7 @@
       background: #1b4d3e;
       color: white !important;
       text-decoration: none;
-      padding: 11px 10px;
+      padding: 12px 10px;
       border-radius: 10px;
       font-size: 13px;
       font-weight: 700;
@@ -142,7 +129,7 @@
       background: #ba2323;
       color: white !important;
       text-decoration: none;
-      padding: 11px 14px;
+      padding: 12px 14px;
       border-radius: 10px;
       font-size: 13px;
       font-weight: 700;
@@ -249,10 +236,7 @@
       <small id="fecha-label" style="opacity: 0.7; font-size: 12px;"></small>
     </div>
 
-    <!-- Botón directo YouVersion (sin error 500) -->
-    <a id="btn-todos" href="#" target="_blank" rel="noopener noreferrer" class="btn-todos">📖 Abrir lectura de hoy en YouVersion NTV</a>
-
-    <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; opacity: 0.7; margin-bottom: 6px;">O por libros asignados:</div>
+    <div style="font-size: 11px; font-weight: 800; text-transform: uppercase; opacity: 0.7; margin-bottom: 6px;">Porciones del día (YouVersion NTV):</div>
     <div id="contenedor-botones" class="lecturas-grid"></div>
 
     <label style="font-size: 11px; font-weight: 800; opacity: 0.75; display: block; margin-bottom: 4px;">Palabra o versículo clave (Opcional):</label>
@@ -272,12 +256,12 @@
   <!-- Modal Ritual 5 Pasos -->
   <div id="modal-ritual" class="modal" onclick="toggleModal(false)">
     <div class="modal-box" onclick="event.stopPropagation()">
-      <h3 style="margin-top:0; color:var(--primary);">🧭 Regla de Oro (1 Minuto)[cite: 11]</h3>
-      <p><b>1. Pausa:</b> "Señor, vengo por Ti."[cite: 11]</p>
-      <p><b>2. Lee:</b> Las lecturas asignadas hoy.[cite: 11]</p>
-      <p><b>3. Escucha:</b> Quédate con una frase o palabra.[cite: 11]</p>
-      <p><b>4. Dialoga:</b> Breve oración de respuesta.[cite: 11]</p>
-      <p><b>5. Vive:</b> Lleva esa verdad contigo todo el día.[cite: 11]</p>
+      <h3 style="margin-top:0; color:var(--primary);">🧭 Regla de Oro (1 Minuto)[cite: 7]</h3>
+      <p><b>1. Pausa:</b> "Señor, vengo por Ti."[cite: 7]</p>
+      <p><b>2. Lee:</b> Las lecturas asignadas hoy.[cite: 7]</p>
+      <p><b>3. Escucha:</b> Quédate con una frase o palabra.[cite: 7]</p>
+      <p><b>4. Dialoga:</b> Breve oración de respuesta.[cite: 7]</p>
+      <p><b>5. Vive:</b> Lleva esa verdad contigo todo el día.[cite: 7]</p>
       <button class="btn-completar" style="padding: 10px; margin-top: 8px;" onclick="toggleModal(false)">Entendido</button>
     </div>
   </div>
@@ -418,24 +402,18 @@
       document.getElementById('mes-titulo').innerText = data.mes + " — " + data.temaMes;
       document.getElementById('mes-enfoque').innerText = data.enfoqueMes;
       document.getElementById('avance-badge').innerText = "Progreso: " + data.avanceTotal;
-      
-      let btnTodos = document.getElementById('btn-todos');
+
       let contenedor = document.getElementById('contenedor-botones');
       contenedor.innerHTML = "";
 
-      if (data.botonesLectura.length === 0) {
+      if (!data.botonesLectura || data.botonesLectura.length === 0) {
         contenedor.innerHTML = "<div style='font-size:13px; opacity:0.8; text-align:center;'>Día de gracia o descanso reflexivo.</div>";
-        btnTodos.style.display = 'none';
       } else {
-        btnTodos.style.display = 'block';
-        // Enlaza la lectura principal a YouVersion (sin error 500)
-        btnTodos.href = data.botonesLectura[0].urlYouVersion;
-
         data.botonesLectura.forEach(function(b) {
           let fila = document.createElement('div');
           fila.className = "btn-pasaje-row";
 
-          // Lectura directa en YouVersion
+          // Botón para LEER el pasaje en YouVersion
           let btnLectura = document.createElement('a');
           btnLectura.className = "btn-pasaje";
           btnLectura.href = b.urlYouVersion;
@@ -443,7 +421,7 @@
           btnLectura.rel = "noopener noreferrer";
           btnLectura.innerText = "📖 " + b.texto + " (NTV)";
 
-          // Audio oficial en YouVersion
+          // Botón para ESCUCHAR el audio en YouVersion
           let btnAudio = document.createElement('a');
           btnAudio.className = "btn-audio";
           btnAudio.href = b.urlYouVersion;
