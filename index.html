@@ -545,26 +545,35 @@
 
 function salirAppDefinitivo() {
   if (confirm("¿Deseas salir de la aplicación?")) {
-    // 1. Limpiar credenciales y almacenamiento de sesión
+    // 1. Resetear variable en memoria y almacenamiento local
+    usuarioActivo = null;
     localStorage.removeItem("usuarioActivo");
     sessionStorage.clear();
 
-    // 2. Notificar al sistema para cerrar la vista actual
+    // 2. Limpiar la pantalla para que la miniatura quede en el login
     try {
-      window.close();
+      document.getElementById('app-content').style.display = 'none';
+      location.reload(); // Recarga la página limpia en la pantalla de bienvenida
     } catch(e) {}
 
-    // 3. Forzar salida al launcher principal de Android
+    // 3. Forzar salida al escritorio de Android
     setTimeout(function() {
       window.location.replace("intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.HOME;end");
-    }, 50);
+    }, 100);
   }
 }
-    window.addEventListener("pageshow", function() {
-      if (usuarioActivo) {
-        document.getElementById('app-content').style.display = 'block';
-      }
-    });
+
+window.addEventListener("pageshow", function() {
+  // Solo restaurar si realmente existe el usuario en localStorage
+  const sesionGuardada = localStorage.getItem("usuarioActivo");
+  if (sesionGuardada) {
+    usuarioActivo = sesionGuardada;
+    const content = document.getElementById('app-content');
+    if (content) content.style.display = 'block';
+  } else {
+    usuarioActivo = null;
+  }
+});
 
     window.onload = function() { inicializar(); };
   </script>
