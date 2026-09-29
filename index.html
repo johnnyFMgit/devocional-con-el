@@ -545,26 +545,31 @@
 
 function salirAppDefinitivo() {
   if (confirm("¿Deseas salir de la aplicación?")) {
-    // 1. Resetear variable en memoria y almacenamiento local
+    // 1. Limpiar usuario y claves de memoria
     usuarioActivo = null;
     localStorage.removeItem("usuarioActivo");
     sessionStorage.clear();
 
-    // 2. Limpiar la pantalla para que la miniatura quede en el login
-    try {
-      document.getElementById('app-content').style.display = 'none';
-      location.reload(); // Recarga la página limpia en la pantalla de bienvenida
-    } catch(e) {}
+    // 2. Restaurar la pantalla inicial (Login/Bienvenida)
+    const content = document.getElementById('app-content');
+    if (content) content.style.display = 'none';
 
-    // 3. Forzar salida al escritorio de Android
+    // Mostrar el contenedor de inicio/login y reejecutar la vista inicial
+    const loginBox = document.getElementById('login-container') || document.getElementById('auth-container') || document.getElementById('contenedor-login');
+    if (loginBox) {
+      loginBox.style.display = 'block';
+    } else if (typeof inicializar === "function") {
+      inicializar();
+    }
+
+    // 3. Salir al launcher principal de Android
     setTimeout(function() {
       window.location.replace("intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.HOME;end");
-    }, 100);
+    }, 120);
   }
 }
 
 window.addEventListener("pageshow", function() {
-  // Solo restaurar si realmente existe el usuario en localStorage
   const sesionGuardada = localStorage.getItem("usuarioActivo");
   if (sesionGuardada) {
     usuarioActivo = sesionGuardada;
@@ -572,9 +577,13 @@ window.addEventListener("pageshow", function() {
     if (content) content.style.display = 'block';
   } else {
     usuarioActivo = null;
+    const content = document.getElementById('app-content');
+    if (content) content.style.display = 'none';
+    if (typeof inicializar === "function") {
+      inicializar();
+    }
   }
 });
-
     window.onload = function() { inicializar(); };
   </script>
 </body>
