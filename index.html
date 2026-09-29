@@ -9,10 +9,14 @@
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="https://img.icons8.com/color/192/holy-bible.png">
   <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js');
-    }
-  </script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+      for(let registration of registrations) {
+        registration.unregister();
+      }
+    });
+  }
+</script>
   <style>
     :root {
       --bg: #0f172a;
@@ -541,8 +545,11 @@
 
 function salirAppDefinitivo() {
   if (confirm("¿Deseas salir de la aplicación?")) {
-    window.location.href = "about:blank";
-    window.close();
+    window.location.replace("about:blank");
+    setTimeout(function() {
+      window.close();
+      window.history.back();
+    }, 50);
   }
 }
     window.addEventListener("pageshow", function() {
