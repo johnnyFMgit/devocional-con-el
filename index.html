@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="apple-touch-icon" href="https://img.icons8.com/color/192/holy-bible.png">
   <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="https://img.icons8.com/color/192/holy-bible.png">
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('sw.js');
@@ -20,8 +20,8 @@
       --text: #1e293b;
       --primary: #1b4d3e;
       --accent: #0284c7;
-      --border: #cbd5e1;
-      --nav-bg: #f1f5f9;
+      --border: #e2e8f0;
+      --nav-bg: #f8fafc;
       --nav-text: #0f172a;
     }
     .dark-mode {
@@ -30,7 +30,7 @@
       --text: #f1f5f9;
       --primary: #2d6a4f;
       --accent: #38bdf8;
-      --border: #475569;
+      --border: #334155;
       --nav-bg: #334155;
       --nav-text: #ffffff;
     }
@@ -39,24 +39,24 @@
       background: var(--bg); 
       color: var(--text);
       margin: 0; 
-      padding: 12px; 
+      padding: 10px 12px; 
       display: flex;
       justify-content: center;
       transition: 0.3s;
     }
     .card { 
       background: var(--card); 
-      border-radius: 20px; 
-      padding: 18px 18px 24px 18px; 
-      max-width: 430px; 
+      border-radius: 24px; 
+      padding: 18px 16px 20px 16px; 
+      max-width: 420px; 
       width: 100%;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
       box-sizing: border-box;
-      margin-bottom: 25px;
+      margin-bottom: 20px;
     }
     .tab-auth {
       display: flex;
-      border-radius: 10px;
+      border-radius: 12px;
       background: rgba(0,0,0,0.06);
       margin-bottom: 16px;
       padding: 4px;
@@ -68,7 +68,7 @@
       background: transparent;
       font-weight: 700;
       color: var(--text);
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
       font-size: 13px;
       transition: 0.2s;
@@ -76,46 +76,45 @@
     .tab-btn.active {
       background: var(--card);
       color: var(--primary);
-      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
     .app-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 2px solid var(--border);
+      border-bottom: 1.5px solid var(--border);
       padding-bottom: 10px;
       margin-bottom: 12px;
     }
     .app-title-box { display: flex; flex-direction: column; }
-    .app-title { font-size: 16px; font-weight: 800; color: var(--primary); letter-spacing: 0.5px; }
+    .app-title { font-size: 17px; font-weight: 800; color: var(--primary); letter-spacing: 0.3px; }
     .app-subtitle { font-size: 10px; font-weight: 700; text-transform: uppercase; opacity: 0.7; letter-spacing: 0.5px; }
-    .lector-tag { font-size: 11px; font-weight: 700; color: var(--accent); cursor: pointer; display: flex; align-items: center; gap: 3px; margin-top: 3px; }
+    .lector-tag { font-size: 12px; font-weight: 700; color: var(--accent); cursor: pointer; display: flex; align-items: center; gap: 4px; margin-top: 3px; }
     
-    .top-actions { display: flex; gap: 8px; align-items: center; }
-    .badge-progress { background: #dcfce7; color: #166534; font-size: 11px; font-weight: 700; padding: 4px 9px; border-radius: 999px; }
+    .top-actions { display: flex; gap: 6px; align-items: center; }
+    .badge-progress { background: #dcfce7; color: #166534; font-size: 11px; font-weight: 800; padding: 4px 8px; border-radius: 999px; }
     .btn-icon { background: var(--nav-bg); border: 1px solid var(--border); border-radius: 50%; width: 34px; height: 34px; cursor: pointer; color: var(--text); display: flex; align-items: center; justify-content: center; font-size: 14px; }
 
     .mes-card {
-      background: linear-gradient(135deg, rgba(27,77,62,0.08), rgba(2,132,199,0.08));
+      background: linear-gradient(135deg, rgba(27,77,62,0.06), rgba(2,132,199,0.06));
       border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 9px 12px;
+      border-radius: 14px;
+      padding: 10px 14px;
       margin-bottom: 12px;
     }
-    .mes-titulo { font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--primary); }
-    .mes-enfoque { font-size: 11.5px; margin-top: 2px; opacity: 0.85; line-height: 1.25; }
+    .mes-titulo { font-size: 11px; font-weight: 800; text-transform: uppercase; color: var(--primary); letter-spacing: 0.3px; }
+    .mes-enfoque { font-size: 12px; margin-top: 2px; opacity: 0.85; line-height: 1.3; }
 
     .nav-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; gap: 6px; }
     .nav-btn { 
       background: var(--nav-bg); 
-      border: 1.5px solid var(--border); 
+      border: 1px solid var(--border); 
       color: var(--nav-text); 
       padding: 8px 12px; 
-      border-radius: 9px; 
-      font-weight: 800; 
+      border-radius: 10px; 
+      font-weight: 700; 
       cursor: pointer; 
       font-size: 12px;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
     }
     .nav-btn:active { transform: scale(0.96); }
 
@@ -123,39 +122,36 @@
       background: rgba(27, 77, 62, 0.05);
       border-left: 4px solid var(--primary);
       padding: 12px 14px;
-      border-radius: 10px;
-      margin-bottom: 13px;
+      border-radius: 12px;
+      margin-bottom: 12px;
     }
-    .pasaje-label { font-size: 10.5px; font-weight: 800; text-transform: uppercase; opacity: 0.7; }
-    .pasaje-text { font-size: 19px; font-weight: 800; color: var(--primary); margin-top: 3px; letter-spacing: -0.3px; }
+    .pasaje-label { font-size: 10.5px; font-weight: 800; text-transform: uppercase; opacity: 0.65; }
+    .pasaje-text { font-size: 19px; font-weight: 800; color: var(--primary); margin-top: 2px; }
 
     .badge-media {
-      display: inline-flex;
+      display: flex;
       align-items: center;
+      justify-content: center;
       gap: 6px;
       background: rgba(2, 132, 199, 0.08);
       color: var(--accent);
-      border: 1px solid rgba(2, 132, 199, 0.2);
-      border-radius: 8px;
-      padding: 5px 10px;
-      font-size: 11px;
+      border: 1px solid rgba(2, 132, 199, 0.18);
+      border-radius: 10px;
+      padding: 6px 10px;
+      font-size: 11.5px;
       font-weight: 700;
       margin-bottom: 10px;
-      width: 100%;
-      box-sizing: border-box;
-      justify-content: center;
     }
 
-    .lecturas-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
+    .lecturas-grid { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
     .btn-pasaje-row { display: flex; gap: 8px; }
     
-    /* Botones limpios en una sola línea */
     .btn-version-ntv {
       flex: 1;
       background: #1b4d3e;
       color: white !important;
       text-decoration: none;
-      padding: 12px 8px;
+      padding: 12px 6px;
       border-radius: 10px;
       font-size: 13px;
       font-weight: 700;
@@ -163,16 +159,14 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 4px;
-      box-shadow: 0 2px 5px rgba(27,77,62,0.2);
-      transition: transform 0.1s;
+      box-shadow: 0 2px 4px rgba(27,77,62,0.2);
     }
     .btn-version-rvr {
       flex: 1;
       background: #0284c7;
       color: white !important;
       text-decoration: none;
-      padding: 12px 8px;
+      padding: 12px 6px;
       border-radius: 10px;
       font-size: 13px;
       font-weight: 700;
@@ -180,9 +174,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 4px;
-      box-shadow: 0 2px 5px rgba(2,132,199,0.2);
-      transition: transform 0.1s;
+      box-shadow: 0 2px 4px rgba(2,132,199,0.2);
     }
     .btn-version-ntv:active, .btn-version-rvr:active {
       transform: scale(0.97);
@@ -193,12 +185,12 @@
       background: #10b981;
       color: white;
       border: none;
-      padding: 14px;
+      padding: 13px;
       border-radius: 12px;
-      font-size: 15px;
+      font-size: 14.5px;
       font-weight: 800;
       cursor: pointer;
-      box-shadow: 0 3px 8px rgba(16,185,129,0.25);
+      box-shadow: 0 3px 6px rgba(16,185,129,0.2);
       transition: 0.2s;
     }
     .btn-completar:active { transform: scale(0.98); }
@@ -208,13 +200,12 @@
       background: transparent;
       border: 1px solid rgba(220, 38, 38, 0.35);
       color: #dc2626;
-      padding: 12px;
+      padding: 11px;
       border-radius: 10px;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 700;
       cursor: pointer;
-      margin-top: 18px;
-      margin-bottom: 10px;
+      margin-top: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -230,9 +221,9 @@
       color: var(--text);
       border-radius: 10px;
       margin-bottom: 12px;
-      font-size: 14px;
+      font-size: 13.5px;
     }
-    .status { text-align: center; color: #10b981; font-weight: 700; margin-top: 10px; font-size: 13px; }
+    .status { text-align: center; color: #10b981; font-weight: 700; margin-top: 8px; font-size: 12.5px; }
 
     .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); align-items: center; justify-content: center; z-index: 50; }
     .modal-box { background: var(--card); padding: 22px; border-radius: 16px; max-width: 320px; font-size: 13px; line-height: 1.5; color: var(--text); }
@@ -301,10 +292,10 @@
     <div class="pasaje-container">
       <div class="pasaje-label">Porción para hoy:</div>
       <div id="pasaje-texto" class="pasaje-text"></div>
-      <small id="fecha-label" style="opacity: 0.7; font-size: 12px;"></small>
+      <small id="fecha-label" style="opacity: 0.7; font-size: 11.5px;"></small>
     </div>
 
-    <div class="badge-media">🎧 Audio y 📖 Lectura en ambas versiones:</div>
+    <div class="badge-media">🎧 Audio y 📖 Lectura disponibles:</div>
     <div id="contenedor-botones" class="lecturas-grid"></div>
 
     <label style="font-size: 11px; font-weight: 800; opacity: 0.75; display: block; margin-bottom: 4px;">Palabra o versículo clave (Opcional):</label>
@@ -480,21 +471,19 @@
           let urlNtv = b.urlYouVersion;
           let urlRvr = b.urlYouVersion.replace("/127/", "/149/").replace(".NTV", ".RVR1960");
 
-          // Botón NTV compacto
           let btnNtv = document.createElement('a');
           btnNtv.className = "btn-version-ntv";
           btnNtv.href = urlNtv;
           btnNtv.target = "_blank";
           btnNtv.rel = "noopener noreferrer";
-          btnNtv.innerHTML = "📖 <b>" + b.texto + "</b> <span style='font-size:11px; opacity:0.85;'>(NTV)</span>";
+          btnNtv.innerHTML = "📖 <b>" + b.texto + "</b> &nbsp;<span style='font-size:11px; opacity:0.85;'>NTV</span>";
 
-          // Botón RVR1960 compacto
           let btnRvr = document.createElement('a');
           btnRvr.className = "btn-version-rvr";
           btnRvr.href = urlRvr;
           btnRvr.target = "_blank";
           btnRvr.rel = "noopener noreferrer";
-          btnRvr.innerHTML = "📖 <b>" + b.texto + "</b> <span style='font-size:11px; opacity:0.85;'>(RVR60)</span>";
+          btnRvr.innerHTML = "📖 <b>" + b.texto + "</b> &nbsp;<span style='font-size:11px; opacity:0.85;'>RVR60</span>";
 
           fila.appendChild(btnNtv);
           fila.appendChild(btnRvr);
@@ -552,17 +541,8 @@
 
     function salirAppDefinitivo() {
       if (confirm("¿Deseas salir de la aplicación?")) {
-        try {
-          if (window.Android && window.Android.closeApp) {
-            window.Android.closeApp();
-            return;
-          }
-          if (navigator.app && navigator.app.exitApp) {
-            navigator.app.exitApp();
-            return;
-          }
-        } catch(e) {}
-        window.location.href = "intent:#Intent;action=android.intent.action.MAIN;category=android.intent.category.HOME;end";
+        window.close();
+        window.history.back();
       }
     }
 
