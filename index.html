@@ -1,55 +1,55 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>✦ Con Él ✦ Su Palabra, Mi Camino</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="apple-touch-icon" href="https://img.icons8.com/color/192/holy-bible.png">
-  <style>
-    :root {
+<cabeza>
+  <meta conjunto de caracteres=„UTF-8">
+  <típulo>✦ Con Él ✦ Su Palabra, Mi Camino</típulo>
+  <meta nombre="ventana gráfica" contenido="ancho=ancho del dispositivo, escala inicial=1, escala máxima=1, escalable por el usuario=no">
+  <meta nombre="apple-mobile-web-app-capable" contenido="sí">
+  <meta nombre="estilo de barra de estado de la aplicación web móvil de Apple" contenido="negro-traducido">
+  <link rel="icono táctil de manzana" href="https://img.icons8.com/color/192/holy-bible.png">
+  <estilo>
+    :raíz {
       --bg: #0f172a;
-      --card: #ffffff;
-      --text: #1e293b;
-      --primary: #1b4d3e;
-      --accent: #0284c7;
-      --border: #e2e8f0;
+      --tarjeta: #ffffff;
+      --texto: #1e293b;
+      --primaria: #1b4d3e;
+      --acento: #0284c7;
+      --frontera: #e2e8f0;
     }
-    .dark-mode {
+    .modo oscuro {
       --bg: #0b0f19;
-      --card: #1e2536;
-      --text: #f1f5f9;
-      --primary: #2d6a4f;
-      --accent: #38bdf8;
-      --border: #334155;
+      --tarjeta: #1e2536;
+      --texto: #f1f5f9;
+      --primaria: #2d6a4f;
+      --acento: #38bdf8;
+      --frontera: #334155;
     }
-    body { 
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-      background: var(--bg); 
-      color: var(--text);
-      margin: 0; 
-      padding: 12px; 
-      display: flex;
-      justify-content: center;
-      transition: 0.3s;
+    cuerpo { 
+      familia de fuentes: -sistema-manzana, Fuente BlinkMacSystem, „Segoe UI", Roboto, sans-serif; 
+      fondo: var(--bg); 
+      color: var(--texto);
+      margen: 0; 
+      aclamado: 12px; 
+      visualizar: flex;
+      justificar-contenido: centro;
+      transición: 0,3s;
     }
-    .card { 
-      background: var(--card); 
-      border-radius: 20px; 
-      padding: 20px; 
-      max-width: 430px; 
-      width: 100%;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-      box-sizing: border-box;
-      margin-bottom: 30px;
+    .tarjeta { 
+      fondo: var(--tarjeta); 
+      radio fronterizo: 20px; 
+      aclamado: 20px; 
+      ancho máximo: 430px; 
+      ancho: 100%;
+      caja-sombra: 0 10px 30px rgba(0,0,0,0,25);
+      tamaño de caja: border-box;
+      margen inferior: 30px;
     }
     .tab-auth {
       display: flex;
-      border-radius: 10px;
-      background: rgba(0,0,0,0.06);
-      margin-bottom: 16px;
-      padding: 4px;
+      radio del borde: 10px;
+      fondo: rgba(0,0,0,0.06);
+      margen inferior: 16px;
+      relleno: 4px;
     }
     .tab-btn {
       flex: 1;
@@ -201,7 +201,7 @@
       <button class="btn-completar" onclick="procesarAuth(true)">Crear mi Plan Personal</button>
     </div>
 
-    <!-- Formulario Login (Menú Desplegable) -->
+    <!-- Formulario Login -->
     <div id="form-login" style="display:none;">
       <label style="font-size:12px; font-weight:700; display:block; text-align:left; margin-bottom:4px;">Selecciona tu Perfil:</label>
       <select id="log-nombre">
@@ -272,12 +272,12 @@
   <!-- Modal Ritual 5 Pasos -->
   <div id="modal-ritual" class="modal" onclick="toggleModal(false)">
     <div class="modal-box" onclick="event.stopPropagation()">
-      <h3 style="margin-top:0; color:var(--primary);">🧭 Regla de Oro (1 Minuto)[cite: 8]</h3>
-      <p><b>1. Pausa:</b> "Señor, vengo por Ti."[cite: 8]</p>
-      <p><b>2. Lee:</b> Las lecturas asignadas hoy.[cite: 8]</p>
-      <p><b>3. Escucha:</b> Quédate con una frase o palabra.[cite: 8]</p>
-      <p><b>4. Dialoga:</b> Breve oración de respuesta.[cite: 8]</p>
-      <p><b>5. Vive:</b> Lleva esa verdad contigo todo el día.[cite: 8]</p>
+      <h3 style="margin-top:0; color:var(--primary);">🧭 Regla de Oro (1 Minuto)</h3>
+      <p><b>1. Pausa:</b> "Señor, vengo por Ti."</p>
+      <p><b>2. Lee:</b> Las lecturas asignadas hoy.</p>
+      <p><b>3. Escucha:</b> Quédate con una frase o palabra.</p>
+      <p><b>4. Dialoga:</b> Breve oración de respuesta.</p>
+      <p><b>5. Vive:</b> Lleva esa verdad contigo todo el día.</p>
       <button class="btn-completar" style="padding: 10px; margin-top: 8px;" onclick="toggleModal(false)">Entendido</button>
     </div>
   </div>
@@ -383,60 +383,79 @@
       }
     }
 
+    // --- CARGA CON CACHÉ LOCAL (INSTANTÁNEA) ---
     async function cargarDatos(dia) {
-      document.getElementById('msg-status').innerText = "Cargando...";
+      let cacheKey = "conel_cache_" + (usuarioActivo || "anon") + "_" + (dia || "hoy");
+      let cached = localStorage.getItem(cacheKey);
+
+      // Si ya tenemos guardado este día en memoria, se muestra de inmediato
+      if (cached) {
+        renderizarUI(JSON.parse(cached));
+      } else {
+        document.getElementById('msg-status').innerText = "Cargando...";
+      }
+
+      // Consulta en segundo plano a la hoja de cálculo
       try {
         let resp = await apiRequest({
           accion: "obtenerDia",
           dia: dia || "",
           usuario: usuarioActivo
         });
-        let data = resp.datos;
-        diaActual = data.diaNum;
-        document.getElementById('dia-subtitulo').innerText = "Día " + data.diaNum + " • " + data.diaSemana;
-        document.getElementById('fecha-label').innerText = data.fecha + " (" + data.semana + ")";
-        document.getElementById('pasaje-texto').innerText = data.pasaje;
-        document.getElementById('mes-titulo').innerText = data.mes + " — " + data.temaMes;
-        document.getElementById('mes-enfoque').innerText = data.enfoqueMes;
-        document.getElementById('avance-badge').innerText = "Progreso: " + data.avanceTotal;
-        document.getElementById('btn-todos').href = data.urlGatewayTotal;
-
-        let contenedor = document.getElementById('contenedor-botones');
-        contenedor.innerHTML = "";
-
-        if (data.botonesLectura.length === 0) {
-          contenedor.innerHTML = "<div style='font-size:13px; opacity:0.8; text-align:center;'>Día de gracia o descanso reflexivo.</div>";
-          document.getElementById('btn-todos').style.display = 'none';
-        } else {
-          document.getElementById('btn-todos').style.display = 'block';
-          data.botonesLectura.forEach(function(b) {
-            let fila = document.createElement('div');
-            fila.className = "btn-pasaje-row";
-
-            let btnGateway = document.createElement('a');
-            btnGateway.className = "btn-pasaje";
-            btnGateway.href = b.urlGateway;
-            btnGateway.target = "_blank";
-            btnGateway.innerText = "📖 " + b.texto + " (NTV)";
-
-            let btnAudio = document.createElement('a');
-            btnAudio.className = "btn-audio";
-            btnAudio.href = b.urlYouVersion;
-            btnAudio.target = "_blank";
-            btnAudio.innerText = "🎧 YouVersion NTV";
-
-            fila.appendChild(btnGateway);
-            fila.appendChild(btnAudio);
-            contenedor.appendChild(fila);
-          });
+        if (resp.exito) {
+          localStorage.setItem(cacheKey, JSON.stringify(resp.datos));
+          renderizarUI(resp.datos);
         }
-
-        document.getElementById('msg-status').innerText = data.completado ? "✅ Lectura ya completada" : "";
-        document.getElementById('btn-check').style.background = data.completado ? "#64748b" : "#10b981";
-        document.getElementById('btn-check').innerText = data.completado ? "✔ Completado" : "✔ Marcar como Completado";
       } catch(e) {
-        document.getElementById('msg-status').innerText = "Error al cargar datos.";
+        if (!cached) {
+          document.getElementById('msg-status').innerText = "Error al conectar con la nube.";
+        }
       }
+    }
+
+    function renderizarUI(data) {
+      diaActual = data.diaNum;
+      document.getElementById('dia-subtitulo').innerText = "Día " + data.diaNum + " • " + data.diaSemana;
+      document.getElementById('fecha-label').innerText = data.fecha + " (" + data.semana + ")";
+      document.getElementById('pasaje-texto').innerText = data.pasaje;
+      document.getElementById('mes-titulo').innerText = data.mes + " — " + data.temaMes;
+      document.getElementById('mes-enfoque').innerText = data.enfoqueMes;
+      document.getElementById('avance-badge').innerText = "Progreso: " + data.avanceTotal;
+      document.getElementById('btn-todos').href = data.urlGatewayTotal;
+
+      let contenedor = document.getElementById('contenedor-botones');
+      contenedor.innerHTML = "";
+
+      if (data.botonesLectura.length === 0) {
+        contenedor.innerHTML = "<div style='font-size:13px; opacity:0.8; text-align:center;'>Día de gracia o descanso reflexivo.</div>";
+        document.getElementById('btn-todos').style.display = 'none';
+      } else {
+        document.getElementById('btn-todos').style.display = 'block';
+        data.botonesLectura.forEach(function(b) {
+          let fila = document.createElement('div');
+          fila.className = "btn-pasaje-row";
+
+          let btnGateway = document.createElement('a');
+          btnGateway.className = "btn-pasaje";
+          btnGateway.href = b.urlGateway;
+          btnGateway.target = "_blank";
+          btnGateway.innerText = "📖 " + b.texto + " (NTV)";
+
+          let btnAudio = document.createElement('a');
+          btnAudio.className = "btn-audio";
+          btnAudio.href = b.urlYouVersion;
+          btnAudio.target = "_blank";
+          btnAudio.innerText = "🎧 YouVersion NTV";
+
+          fila.appendChild(btnGateway);
+          fila.appendChild(btnAudio);
+          contenedor.appendChild(fila);
+        });
+      }
+
+      document.getElementById('msg-status').innerText = data.completado ? "✅ Lectura ya completada" : "";
+      document.getElementById('btn-check').style.background = data.completado ? "#64748b" : "#10b981";
+      document.getElementById('btn-check').innerText = data.completado ? "✔ Completado" : "✔ Marcar como Completado";
     }
 
     function cambiarDia(delta) {
@@ -448,41 +467,50 @@
       }
     }
 
-    async function enviarCheck() {
-      let nota = document.getElementById('palabra-clave').value;
-      document.getElementById('btn-check').innerText = "Guardando...";
-      try {
-        let resp = await apiRequest({
-          accion: "marcarLectura",
+    async función enviarCheck() {
+      dejar nota = documento.getElementById('palabra-clave').valor;
+      documento.getElementById('btn-check').texto interno = "Guardando...";
+      intentar {
+        dejar resp = await solicititud API({
+          accidente: „marcarLectura",
           dia: diaActual,
           palabraClave: nota,
           usuario: usuarioActivo
         });
-        document.getElementById('msg-status').innerText = resp.mensaje;
-        document.getElementById('btn-check').innerText = "✔ Completado";
-        document.getElementById('btn-check').style.background = "#64748b";
-      } catch(e) {
-        document.getElementById('msg-status').innerText = "Error al guardar.";
+        documento.getElementById('mensaje del estado').texto interno = resp.mensaje;
+        documento.getElementById('btn-check').texto interno = "✔ Completado";
+        documento.getElementById('btn-check').estilo.fondo = "#64748b";
+
+        // Actualizar la memoria local para reflejar que se completó
+        dejar clave de caché = "conel_cache_" + (usuarioActivo || "anon") + "_" + diaActual;
+        dejar caché = almacenamiento local.obtener elemento(clave de caché);
+        si (caché) {
+          dejar obj = JSON.parse(caché);
+          obj.completado = verdederadero;
+          almacenamiento local.setItem(clave de caché, JSON.stringify(obj));
+        }
+      } atrapar(e) {
+        documento.getElementById('mensaje del estado').texto interno = "Error al guardar.";
       }
     }
 
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark-mode');
+    función alternar modo oscuro() {
+      documento.cuervo.lista de clases.alternar('modo oscuro');
     }
 
-    function toggleModal(show) {
-      document.getElementById('modal-ritual').style.display = show ? 'flex' : 'none';
+    función toggleModal(espectáculo) {
+      documento.getElementById('modal-ritual').estilo.visualizar = espectáculo ? 'flexible' : 'ninguno';
     }
 
-    function salirApp() {
-      if (confirm("¿Deseas cerrar la sesión del devocional?")) {
-        window.close();
-        document.getElementById('app-content').style.display = 'none';
-        document.getElementById('pantalla-salida').style.display = 'block';
+    función aplicación salir() {
+      si (confirmar("¿Deseas cerrar la sesión del devocional?")) {
+        ventana.cerrar();
+        documento.getElementById('contenido de la aplicación').estilo.visualizar = 'ninguno';
+        documento.getElementById('pantalla-salida').estilo.visualizar = 'bloquear';
       }
     }
 
-    window.onload = function() { inicializar(); };
+    ventana.onload = función() { inicializar(); };
   </script>
-</body>
+</cuervo>
 </html>
