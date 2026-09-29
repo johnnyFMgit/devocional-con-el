@@ -545,8 +545,11 @@
 
 function salirAppDefinitivo() {
   if (confirm("¿Deseas salir de la aplicación?")) {
-    window.close();
-    window.location.href = "about:blank";
+    if (window.Android && typeof window.Android.closeApp === "function") {
+      window.Android.closeApp();
+      return;
+    }
+    window.history.back();
   }
 }
     window.addEventListener("pageshow", function() {
